@@ -1,3 +1,4 @@
+import math
 import pygame, sys
 from pygame.locals import *
 
@@ -11,7 +12,9 @@ BLUE = (169, 232, 228)
 #constants representing the different resources
 LEAF  = 0
 TOAD = 1
-
+TILESIZE  = 40
+MAPWIDTH  = 4
+MAPHEIGHT = 4
  
 #a dictionary linking resources to colours
 colours =   {
@@ -55,23 +58,36 @@ tilemap2 = [
             [TOAD,LEAF,LEAF,TOAD],
             [TOAD,TOAD,TOAD,TOAD]
           ]
+#Click function
+def click(x,y):
+    x = (x-40)/40
+    x = math.ceil(x)
+    y = (y-240)/40
+    y = math.ceil(y)
+    yl = y-2,y,y-1
+    xl = x-2,x,x-1
+    for ax in range(0,4):
+        for ay in range(0,4):
+            if ax in xl and ay in yl:
+                if tilemap2[ay][ax] == TOAD:
+                    tilemap2[ay][ax] = LEAF
+                elif tilemap2[ay][ax] == LEAF:
+                    tilemap2[ay][ax] = TOAD
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((MAPWIDTH*TILESIZE+80,MAPHEIGHT*TILESIZE+280))
 DISPLAYSURF.fill(BLUE) 
 while True:
-    
-    
-
     #get all the user events
     for event in pygame.event.get():
         #if the user wants to quit
-            if event.type == QUIT:
-            #and the game and close the window
+        if event.type == QUIT:
+        #and the game and close the window
             pygame.quit()
             sys.exit()
-        (x, y)= pygame.mouse.get_pos()
-
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            (x, y)= pygame.mouse.get_pos()
+            click(x,y)
  
     #loop through each row
     for row in range(MAPHEIGHT):
