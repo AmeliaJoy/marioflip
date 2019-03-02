@@ -11,8 +11,8 @@ BROWN = (153, 76,  0  )
 BLUE = (169, 232, 228)
  
 #constants representing the different resources
-LEAF  = 0
-TOAD = 1
+LEAF  = 1
+TOAD = 0
 TILESIZE  = 40
 MAPWIDTH  = 4
 MAPHEIGHT = 4
