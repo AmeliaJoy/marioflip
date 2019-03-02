@@ -1,6 +1,8 @@
 import pygame, sys
 from pygame.locals import *
- 
+
+#note from Tom
+
 #constants representing colours
 WHITE = (255,   255,   255  )
 BROWN = (153, 76,  0  )
