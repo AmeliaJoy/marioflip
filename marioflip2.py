@@ -1,7 +1,7 @@
 import math
 import pygame, sys
 from pygame.locals import *
-
+import random
 #note from Tom
 
 #constants representing colours
@@ -15,13 +15,15 @@ TOAD = 1
 TILESIZE  = 40
 MAPWIDTH  = 4
 MAPHEIGHT = 4
- 
+tilemaps = []
+cat = [LEAF,TOAD]
 #a dictionary linking resources to colours
 colours =   {
                 LEAF  : pygame.image.load('brownblock.png'),
                 TOAD  : pygame.image.load('whiteblock.png')
             }
 #maps
+
 tilemap = [
             [LEAF,TOAD,TOAD,LEAF],
             [LEAF,LEAF,TOAD,LEAF],
@@ -34,6 +36,7 @@ tilemap2 = [
             [LEAF,TOAD,TOAD,TOAD],
             [LEAF,TOAD,LEAF,TOAD]
           ]
+tilemaps.append([tilemap,tilemap2])
 tilemap = [
             [LEAF,TOAD,TOAD,LEAF],
             [TOAD,LEAF,LEAF,TOAD],
@@ -46,18 +49,24 @@ tilemap2 = [
             [LEAF,TOAD,LEAF,TOAD],
             [TOAD,LEAF,TOAD,LEAF]
           ]
+tilemaps.append([tilemap,tilemap2])
+
 tilemap = [
             [TOAD,TOAD,TOAD,TOAD],
             [TOAD,LEAF,LEAF,TOAD],
             [TOAD,LEAF,LEAF,TOAD],
             [TOAD,TOAD,TOAD,TOAD]
           ]
+
 tilemap2 = [
             [TOAD,TOAD,LEAF,LEAF],
             [TOAD,LEAF,TOAD,LEAF],
             [TOAD,LEAF,LEAF,TOAD],
             [TOAD,TOAD,TOAD,TOAD]
           ]
+tilemaps.append([tilemap,tilemap2])
+tilemap = tilemaps[0][0]
+tilemap2 = tilemaps[0][1]
 #Click function
 def click(x,y):
     x = (x-40)/40
@@ -73,6 +82,19 @@ def click(x,y):
                     tilemap2[ay][ax] = LEAF
                 elif tilemap2[ay][ax] == LEAF:
                     tilemap2[ay][ax] = TOAD
+def nextpuzzle(aa,bb):
+    global cc
+    global dd
+    if aa == bb:
+        next = False
+        for x in range(0,len(tilemaps)):
+            if tilemaps[x] == [aa,bb]:
+                next = True
+                if x != len(tilemaps)-1:
+                    cc = tilemaps[x+1][0]
+                    dd = tilemaps[x+1][1]
+            elif next == True:
+                pass
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((MAPWIDTH*TILESIZE+80,MAPHEIGHT*TILESIZE+280))
@@ -88,7 +110,26 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             (x, y)= pygame.mouse.get_pos()
             click(x,y)
- 
+    if tilemap == tilemap2:
+        nextpuzzle(tilemap,tilemap2)
+        print(cc)
+        
+        tilemap = cc
+        tilemap2 = dd
+        if tilemap2 == tilemaps[len(tilemaps)-1][0]:
+            tilemap = [
+            [TOAD,LEAF,TOAD,LEAF],
+            [TOAD,TOAD,TOAD,TOAD],
+            [TOAD,LEAF,TOAD,LEAF],
+            [TOAD,TOAD,LEAF,TOAD]
+          ]
+            tilemap2 = [
+            [TOAD,TOAD,TOAD,LEAF],
+            [LEAF,TOAD,LEAF,TOAD],
+            [TOAD,LEAF,TOAD,TOAD],
+            [TOAD,TOAD,TOAD,TOAD]
+          ]    
+        
     #loop through each row
     for row in range(MAPHEIGHT):
         #loop through each column in the row
