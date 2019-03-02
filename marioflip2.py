@@ -1,4 +1,5 @@
 import math
+from mariopuzzles import *
 import pygame, sys
 from pygame.locals import *
 import random
@@ -24,49 +25,9 @@ colours =   {
             }
 #maps
 
-tilemap = [
-            [LEAF,TOAD,TOAD,LEAF],
-            [LEAF,LEAF,TOAD,LEAF],
-            [LEAF,TOAD,LEAF,LEAF],
-            [LEAF,TOAD,TOAD,LEAF]
-          ]
-tilemap2 = [
-            [LEAF,TOAD,TOAD,LEAF],
-            [LEAF,LEAF,LEAF,TOAD],
-            [LEAF,TOAD,TOAD,TOAD],
-            [LEAF,TOAD,LEAF,TOAD]
-          ]
-tilemaps.append([tilemap,tilemap2])
-tilemap = [
-            [LEAF,TOAD,TOAD,LEAF],
-            [TOAD,LEAF,LEAF,TOAD],
-            [TOAD,LEAF,LEAF,TOAD],
-            [LEAF,TOAD,TOAD,LEAF]
-          ]
-tilemap2 = [
-            [LEAF,TOAD,TOAD,LEAF],
-            [LEAF,TOAD,LEAF,TOAD],
-            [LEAF,TOAD,LEAF,TOAD],
-            [TOAD,LEAF,TOAD,LEAF]
-          ]
-tilemaps.append([tilemap,tilemap2])
-
-tilemap = [
-            [TOAD,TOAD,TOAD,TOAD],
-            [TOAD,LEAF,LEAF,TOAD],
-            [TOAD,LEAF,LEAF,TOAD],
-            [TOAD,TOAD,TOAD,TOAD]
-          ]
-
-tilemap2 = [
-            [TOAD,TOAD,LEAF,LEAF],
-            [TOAD,LEAF,TOAD,LEAF],
-            [TOAD,LEAF,LEAF,TOAD],
-            [TOAD,TOAD,TOAD,TOAD]
-          ]
-tilemaps.append([tilemap,tilemap2])
-tilemap = tilemaps[0][0]
-tilemap2 = tilemaps[0][1]
+tilemaps = arbitrary
+tilemap = arbitrar
+tilemap2 = arbitrar2
 #Click function
 def click(x,y):
     x = (x-40)/40
@@ -112,7 +73,6 @@ while True:
             click(x,y)
     if tilemap == tilemap2:
         nextpuzzle(tilemap,tilemap2)
-        print(cc)
         
         tilemap = cc
         tilemap2 = dd
